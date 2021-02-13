@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace MedicalResearch.VisitData.Persistence.EF {
+namespace MedicalResearch.Workflow.Persistence.EF {
 
-  public class VisitDataDbContext : DbContext{
+  public class WorkflowDefinitionDbContext : DbContext{
 
 
     public DbSet<DataRecording> DataRecordings { get; set; }
@@ -15,28 +15,34 @@ namespace MedicalResearch.VisitData.Persistence.EF {
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       base.OnModelCreating(modelBuilder);
 
+      // TABLE NAMES
+
+      const string tablePrefix = "Wdr";
+
+      modelBuilder.Entity<DataRecording>().ToTable(tablePrefix + nameof(this.DataRecordings));
+
+      // PRIMARY KEYS
+
       modelBuilder.Entity<DataRecording>().HasKey(e => e.RecordId);
       modelBuilder.Entity<DrugApplyment>().HasKey(e => e.RecordId);
       modelBuilder.Entity<Treatment>().HasKey(e => e.RecordId);
       modelBuilder.Entity<Visit>().HasKey(e => e.RecordId);
 
     }
-
     protected override void OnConfiguring(DbContextOptionsBuilder options) {
       options.UseSqlServer(_ConnectionString);
     }
 
     public static void Migrate() {
       if (!_Migrated) {
-        VisitDataDbContext c = new VisitDataDbContext();
+        WorkflowDefinitionDbContext c = new WorkflowDefinitionDbContext();
         c.Database.Migrate();
         _Migrated = true;
         c.Dispose();
       }
     }
 
-   private static bool _Migrated = false;
-
+    private static bool _Migrated = false;
     private static String _ConnectionString = null;
     public static String ConnectionString {
       set{ _ConnectionString = value;  }

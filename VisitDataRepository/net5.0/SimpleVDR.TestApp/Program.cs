@@ -1,9 +1,9 @@
-﻿using ORSCF.VisitData.RepositoryClient;
+﻿using MedicalResearch.VisitData.RepositoryClient;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace ORSCF.VisitData {
+namespace MedicalResearch.VisitData {
 
   public class Program {
 
@@ -16,7 +16,7 @@ namespace ORSCF.VisitData {
       ///
       HttpClient http = new HttpClient();
       http.DefaultRequestHeaders.Add("X-API-Key", xApiKey);
-      Client repository = new Client(repoUrl, http);
+      Client repository = new RepositoryClient.Client(repoUrl, http);
 
       //////////////////////////////////////////////////////////////////////////////////////////
 

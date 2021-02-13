@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>ORSCF.SimpleVisitDataRepository.WebAPI</AssemblyName>
-    <RootNamespace>MedicalResearch.VisitData</RootNamespace>
+    <AssemblyName>ORSCF.WorkflowDefinitionRepository.WebAPI</AssemblyName>
+    <RootNamespace>MedicalResearch.Workflow</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\(git)\ORSCF\(ORSCF) orscf-showcase\VisitDataRepository\net5.0\SimpleVDR.WebAPI\ORSCF.SimpleVisitDataRepository.WebAPI.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\(git)\ORSCF\(ORSCF) orscf-showcase\VisitDataRepository\net5.0\SimpleVDR.WebAPI\ORSCF.SimpleVisitDataRepository.WebAPI.xml</DocumentationFile>
+    <DocumentationFile>D:\(git)\ORSCF\(ORSCF) orscf-showcase\StudyWorkflowDefinitionRepository\net5.0\SimpleWDR.WebAPI\ORSCF.WorkflowDefinitionRepository.WebAPI.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimpleVDR.BL\SimpleVDR.BL.csproj" />
+    <ProjectReference Include="..\SimpleWDR.BL\SimpleWDR.BL.csproj" />
   </ItemGroup>
 
 </Project>

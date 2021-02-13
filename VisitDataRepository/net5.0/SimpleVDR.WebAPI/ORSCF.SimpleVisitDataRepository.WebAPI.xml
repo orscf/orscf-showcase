@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ORSCF.SimpleVisitDataRepository.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Security.PermissionsController.GetPermissions">
+            <summary>
+            returns the set of permissions which are assigned to the api-key of the request
+            </summary>
+            <returns>the set of permissions which are assigned to the api-key of the request</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.SearchVisits(System.String,System.String,System.String,System.String,System.Nullable{MedicalResearch.VisitData.VisitExecutionState})">
+            <summary>
+            searches Visits matching the given criteria
+            </summary>
+            <param name="withParticipantIdentifier"> identity of the patient which can be a randomization or screening number (the exact semantic is defined per study)</param>
+            <param name="withExecutingInstituteIdentifier"> the institute which is executing the study </param>
+            <param name="withStudyIdentifier"> the study itself (this value is not related to any specific execution or institute) </param>
+            <param name="withVisitIdentifier"> the VisitIdentifier as defined in the 'StudyWorkflowDefinition'</param>
+            <param name="withExecutionState">0=Unscheduled / 1=Sheduled / 2=Executed / 3=AbortDuringExecution / 4=Skipped / 5=Removed</param>
+            <returns>an array of found Visits matching the given criteria</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.GetVisitById(System.String)">
+            <summary>
+            picks the Visit which is addressed by the given RecordId
+            </summary>
+            <param name="recordId">target RecordId (specific for this repository)</param>
+            <returns>the Visit which is addressed by the given RecordId or null, if is not existing</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.AddNewVisit(MedicalResearch.VisitData.Visit)">
+            <summary>
+            adds the given Visit as new Record to the Repository. A new RecordId will be assigned
+            (any value of the 'RecordId'-Property of the given Visit will be ignored).
+            </summary>
+            <param name="visit">the new Visit</param>
+            <returns>The newly generated RecordId which (specific for this repository)
+            or null, if the visit data is invalid</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.UpdateVisit(MedicalResearch.VisitData.Visit)">
+            <summary>
+            updates the Visit which is addressed by the value of the 'RecordId'-Property of the given Visit using the Contents of the given Visit
+            </summary>
+            <param name="visit">the visit</param>
+            <returns>true, if the visit has been updated, otherwise false</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.UpdateVisitById(System.String,MedicalResearch.VisitData.Visit)">
+            <summary>
+            updates the Visit which is addressed by the given RecordId using the Contents of the given Visit
+            (any value of the 'RecordId'-Property of the given Visit will be ignored).
+            </summary>
+            <param name="recordId">target RecordId (specific for this repository)</param>
+            <param name="visit">the visit</param>
+            <returns>true, if the visit has been updated, otherwise false</returns>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.DeleteVisit(System.String)">
+            <summary>
+            deletes the Visit which is addressed by the given RecordId 
+            </summary>
+            <param name="recordId">target RecordId (specific for this repository)</param>
+            <returns>true, if the visit has been deleted or wasnt exisiting, otherwise false</returns>
+        </member>
+    </members>
+</doc>

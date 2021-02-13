@@ -1,9 +1,9 @@
+using MedicalResearch.Workflow.Persistence.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using MedicalResearch.VisitData.Persistence.EF;
 using System;
 
 namespace WebAPI {
@@ -12,7 +12,7 @@ namespace WebAPI {
 
     public Startup(IConfiguration configuration) {
       _Configuration = configuration;
-      VisitDataDbContext.ConnectionString = configuration.GetValue<String>("SqlConnectionString");
+      WorkflowDefinitionDbContext.ConnectionString = configuration.GetValue<String>("SqlConnectionString");
     }
 
     private static IConfiguration _Configuration = null;
@@ -20,7 +20,7 @@ namespace WebAPI {
 
     public void ConfigureServices(IServiceCollection services) {
 
-     VisitDataDbContext.Migrate();
+      WorkflowDefinitionDbContext.Migrate();
 
       string outDir = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -30,17 +30,17 @@ namespace WebAPI {
 
         c.EnableAnnotations(true, true);
 
-        c.IncludeXmlComments(outDir + "ORSCF.SimpleVisitDataRepository.WebAPI.xml", true);
-        c.IncludeXmlComments(outDir + "ORSCF.SimpleVisitDataRepository.BL.xml", true);
+        c.IncludeXmlComments(outDir + "ORSCF.WorkflowDefinitionRepository.WebAPI.xml", true);
+        c.IncludeXmlComments(outDir + "ORSCF.WorkflowDefinitionRepository.BL.xml", true);
 
         c.UseInlineDefinitionsForEnums();
 
         c.SwaggerDoc(
           "v1",
           new OpenApiInfo {
-            Title = "Visit Data Repository API",
+            Title = "Workflow Definition Repository API",
             Version = "v1.0.0",
-            Description = "stores data for research study related visits",
+            Description = "stores workflow definitions for research studies (digital representations of study-protocols)",
             Contact = new OpenApiContact { 
               Name = "Open Research Study Communication Format",
               Email = "info@orscf.org",
@@ -57,18 +57,18 @@ namespace WebAPI {
 
       //if (env.IsDevelopment()) {
 
-      app.UseDeveloperExceptionPage();
+        app.UseDeveloperExceptionPage();
 
         app.UseSwagger(o => { 
         });
 
         app.UseSwaggerUI(c => {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "VisitDataRepositoryApi v1");
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkflowDefinitionRepositoryApi v1");
           //c.RoutePrefix = string.Empty;
           c.ConfigObject.DefaultModelExpandDepth = 2;
           
           c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
-          c.DocumentTitle = "Visit Data Repository - OpenAPI Schema";
+          c.DocumentTitle = "Workflow Definition Repository - OpenAPI Schema";
         });
 
       //}

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ORSCF.VisitData.Persistence.EF;
+using MedicalResearch.VisitData.Persistence.EF;
 
-namespace ORSCF.VisitData.Migrations
+namespace MedicalResearch.VisitData.Migrations
 {
     [DbContext(typeof(VisitDataDbContext))]
     [Migration("20210121101201_V001")]
@@ -21,7 +21,7 @@ namespace ORSCF.VisitData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("ORSCF.VisitData.DataRecording", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.DataRecording", b =>
                 {
                     b.Property<string>("RecordId")
                         .HasColumnType("nvarchar(450)");
@@ -63,7 +63,7 @@ namespace ORSCF.VisitData.Migrations
                     b.ToTable("DataRecordings");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.DrugApplyment", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.DrugApplyment", b =>
                 {
                     b.Property<string>("RecordId")
                         .HasColumnType("nvarchar(450)");
@@ -108,7 +108,7 @@ namespace ORSCF.VisitData.Migrations
                     b.ToTable("DrugApplyments");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.Treatment", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.Treatment", b =>
                 {
                     b.Property<string>("RecordId")
                         .HasColumnType("nvarchar(450)");
@@ -144,7 +144,7 @@ namespace ORSCF.VisitData.Migrations
                     b.ToTable("Treatments");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.Visit", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.Visit", b =>
                 {
                     b.Property<string>("RecordId")
                         .HasColumnType("nvarchar(450)");
@@ -178,28 +178,28 @@ namespace ORSCF.VisitData.Migrations
                     b.ToTable("Visits");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.DataRecording", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.DataRecording", b =>
                 {
-                    b.HasOne("ORSCF.VisitData.Visit", null)
+                    b.HasOne("MedicalResearch.VisitData.Visit", null)
                         .WithMany("DataRecordings")
                         .HasForeignKey("VisitRecordId");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.DrugApplyment", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.DrugApplyment", b =>
                 {
-                    b.HasOne("ORSCF.VisitData.Visit", null)
+                    b.HasOne("MedicalResearch.VisitData.Visit", null)
                         .WithMany("DrugApplyments")
                         .HasForeignKey("VisitRecordId");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.Treatment", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.Treatment", b =>
                 {
-                    b.HasOne("ORSCF.VisitData.Visit", null)
+                    b.HasOne("MedicalResearch.VisitData.Visit", null)
                         .WithMany("Treatments")
                         .HasForeignKey("VisitRecordId");
                 });
 
-            modelBuilder.Entity("ORSCF.VisitData.Visit", b =>
+            modelBuilder.Entity("MedicalResearch.VisitData.Visit", b =>
                 {
                     b.Navigation("DataRecordings");
 

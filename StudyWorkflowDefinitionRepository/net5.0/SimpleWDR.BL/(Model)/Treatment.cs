@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalResearch.VisitData {
+namespace MedicalResearch.Workflow {
 
-  public class DrugApplyment {
+  public class Treatment {
 
     /// <summary>
     /// a repository-specific id
@@ -24,11 +24,7 @@ namespace MedicalResearch.VisitData {
     public DateTime? ExecutionDateTimeUtc { get; set; } = new DateTime?();
     public TaskExecutionState ExecutionState { get; set; } = TaskExecutionState.Sheduled;
 
-    public String DrugName { get; set; } = null;
-    public decimal DrugDoseMgPerUnit { get; set; } = 0;
-    public decimal AppliedUnits { get; set; } = 0;
-
-    public String InstructionsForExecution { get; set; } = string.Empty; 
+    public String InstructionsForExecution { get; set; } = string.Empty;
     public String NotesRegardingOutcome { get; set; } = string.Empty;
 
   }

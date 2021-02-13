@@ -1,16 +1,41 @@
 ﻿{
   "openapi": "3.0.1",
   "info": {
-    "title": "Study Definition Repository",
-    "description": "Stores 'ResearchStudy' definitions.",
+    "title": "Visit Data Repository API",
+    "description": "stores data for research study related visits",
     "contact": {
       "name": "Open Research Study Communication Format",
       "url": "https://orscf.org",
       "email": "info@orscf.org"
     },
-    "version": "v0.1.0"
+    "version": "v1.0.0"
   },
   "paths": {
+    "/Permissions": {
+      "get": {
+        "tags": [
+          "Permissions"
+        ],
+        "summary": "returns the set of permissions which are assigned to the api-key of the request",
+        "description": "GetPermissions",
+        "operationId": "GetPermissions",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Visits": {
       "get": {
         "tags": [
@@ -84,23 +109,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Visit"
-                  }
-                }
-              },
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Visit"
-                  }
-                }
-              },
-              "text/json": {
                 "schema": {
                   "type": "array",
                   "items": {
@@ -189,16 +198,6 @@
                 "schema": {
                   "type": "boolean"
                 }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
               }
             }
           }
@@ -230,17 +229,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Visit"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Visit"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Visit"
                 }
@@ -298,16 +287,6 @@
                 "schema": {
                   "type": "boolean"
                 }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
               }
             }
           }
@@ -338,16 +317,6 @@
             "description": "Success",
             "content": {
               "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "type": "boolean"
                 }

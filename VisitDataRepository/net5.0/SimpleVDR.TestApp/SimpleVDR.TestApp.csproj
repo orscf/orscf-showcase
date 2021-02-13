@@ -4,9 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>ORSCF.SimpleVisitDataRepository.TestApp</AssemblyName>
-    <RootNamespace>ORSCF.VisitData</RootNamespace>
+    <RootNamespace>MedicalResearch.VisitData</RootNamespace>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
-    <StartupObject>ORSCF.VisitData.Program</StartupObject>
+    <StartupObject>MedicalResearch.VisitData.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

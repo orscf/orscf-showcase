@@ -5,15 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalResearch.VisitData {
+namespace MedicalResearch.Workflow {
 
-  /// <summary>
-  /// 0=Unscheduled / 1=Sheduled / 2=Executed / 3=AbortDuringExecution / 4=Skipped / 5=Removed
-  /// </summary>
-  public enum VisitExecutionState {
-
-    /// <summary> Unscheduled </summary>
-    Unscheduled = 0,
+  public enum TaskExecutionState {
 
     /// <summary> Sheduled </summary>
     Sheduled = 1,
@@ -26,9 +20,6 @@ namespace MedicalResearch.VisitData {
 
     /// <summary> Skipped </summary>
     Skipped = 4,
-
-    /// <summary> Removed </summary>
-    Removed = 5,
 
   }
 

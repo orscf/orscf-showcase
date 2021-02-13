@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ORSCF.VisitData.Migrations
+namespace MedicalResearch.VisitData.Migrations
 {
     public partial class V001 : Migration
     {

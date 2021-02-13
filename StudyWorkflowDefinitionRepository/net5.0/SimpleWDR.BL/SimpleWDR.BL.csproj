@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>MedicalResearch.VisitData</RootNamespace>
-    <AssemblyName>ORSCF.SimpleVisitDataRepository.BL</AssemblyName>
+    <RootNamespace>MedicalResearch.Workflow</RootNamespace>
+    <AssemblyName>ORSCF.WorkflowDefinitionRepository.BL</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\(git)\ORSCF\(ORSCF) orscf-showcase\VisitDataRepository\net5.0\SimpleVDR.BL\ORSCF.SimpleVisitDataRepository.BL.xml</DocumentationFile>
+    <DocumentationFile>D:\(git)\ORSCF\(ORSCF) orscf-showcase\StudyWorkflowDefinitionRepository\net5.0\SimpleWDR.BL\ORSCF.WorkflowDefinitionRepository.BL.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +23,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

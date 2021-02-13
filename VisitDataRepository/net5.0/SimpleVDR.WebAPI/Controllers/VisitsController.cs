@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ORSCF.VisitData.Persistence.EF;
+using MedicalResearch.VisitData.Persistence.EF;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Security;
 
-namespace ORSCF.VisitData.RepositoryService {
+namespace MedicalResearch.VisitData.RepositoryService {
 
   [ApiController]
   [Route("[controller]")]

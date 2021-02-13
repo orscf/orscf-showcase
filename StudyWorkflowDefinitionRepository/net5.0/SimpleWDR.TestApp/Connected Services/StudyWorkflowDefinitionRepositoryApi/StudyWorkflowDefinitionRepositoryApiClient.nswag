@@ -3,8 +3,8 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://localhost:44351/swagger/v1/swagger.json",
-      "output": "VisitDataRepositoryClient.nswag.json",
+      "url": "D:\\(git)\\ORSCF\\(ORSCF) orscf-showcase\\StudyWorkflowDefinitionRepository\\net5.0\\SimpleWDR.TestApp\\..\\..\\..\\..\\(ORSCF) orscf-specification\\StudyWorkflowDefinition\\swagger.json",
+      "output": "StudyWorkflowDefinitionRepositoryApiClient.nswag.json",
       "newLineBehavior": "Auto"
     }
   },
@@ -40,7 +40,7 @@
       "useRequestAndResponseSerializationSettings": false,
       "serializeTypeInformation": false,
       "queryNullValue": "",
-      "className": "{controller}Client",
+      "className": "StudyWorkflowDefinitionRepositoryApiClient",
       "operationGenerationMode": "SingleClientFromOperationId",
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
@@ -49,21 +49,21 @@
       "enforceFlagEnums": false,
       "parameterArrayType": "System.Collections.Generic.IEnumerable",
       "parameterDictionaryType": "System.Collections.Generic.IDictionary",
-      "responseArrayType": "System.Collections.Generic.IEnumerable",
+      "responseArrayType": "System.Collections.Generic.ICollection",
       "responseDictionaryType": "System.Collections.Generic.IDictionary",
       "wrapResponses": false,
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
       "responseClass": "SwaggerResponse",
-      "namespace": "ORSCF.VisitData.RepositoryClient",
+      "namespace": "MedicalResearch.Workflow",
       "requiredPropertiesMustBeDefined": true,
-      "dateType": "System.DateTime",
+      "dateType": "System.DateTimeOffset",
       "jsonConverters": null,
       "anyType": "object",
-      "dateTimeType": "System.DateTime",
+      "dateTimeType": "System.DateTimeOffset",
       "timeType": "System.TimeSpan",
       "timeSpanType": "System.TimeSpan",
-      "arrayType": "System.Collections.Generic.IList",
+      "arrayType": "System.Collections.Generic.ICollection",
       "arrayInstanceType": "System.Collections.ObjectModel.Collection",
       "dictionaryType": "System.Collections.Generic.IDictionary",
       "dictionaryInstanceType": "System.Collections.Generic.Dictionary",
@@ -91,7 +91,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "VisitDataRepositoryClient.cs",
+      "output": "StudyWorkflowDefinitionRepositoryApiClient.cs",
       "newLineBehavior": "Auto"
     }
   }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORSCF.VisitData {
+namespace MedicalResearch.VisitData {
 
   public class Treatment {
 

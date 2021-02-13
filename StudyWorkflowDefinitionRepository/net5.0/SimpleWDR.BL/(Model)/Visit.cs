@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalResearch.VisitData {
+namespace MedicalResearch.Workflow {
 
   public class Visit {
 

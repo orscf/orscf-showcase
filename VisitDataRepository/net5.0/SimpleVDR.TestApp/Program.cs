@@ -1,5 +1,4 @@
-﻿using MedicalResearch.VisitData.RepositoryClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
@@ -16,7 +15,7 @@ namespace MedicalResearch.VisitData {
       ///
       HttpClient http = new HttpClient();
       http.DefaultRequestHeaders.Add("X-API-Key", xApiKey);
-      Client repository = new RepositoryClient.Client(repoUrl, http);
+      VisitDataRepositoryApiClient repository = new VisitDataRepositoryApiClient(repoUrl, http);
 
       //////////////////////////////////////////////////////////////////////////////////////////
 

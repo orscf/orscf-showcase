@@ -37,7 +37,7 @@ namespace MedicalResearch.VisitData.RepositoryService {
       string withExecutingInstituteIdentifier,
       string withStudyIdentifier,
       string withVisitIdentifier,
-      VisitExecutionState? withExecutionState
+      int? withExecutionState
     ) {
 
       Visit[] result;

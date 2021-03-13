@@ -10,7 +10,7 @@
             </summary>
             <returns>the set of permissions which are assigned to the api-key of the request</returns>
         </member>
-        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.SearchVisits(System.String,System.String,System.String,System.String,System.Nullable{MedicalResearch.VisitData.VisitExecutionState})">
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.SearchVisits(System.String,System.String,System.String,System.String,System.Nullable{System.Int32})">
             <summary>
             searches Visits matching the given criteria
             </summary>

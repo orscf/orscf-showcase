@@ -1,0 +1,310 @@
+{
+  "Entities": [
+    {
+      "Name": "DataRecording",
+      "Table": "DataRecordings",
+      "InheritedEntityName": null,
+      "Summary": "",
+      "IsBlEntrypoint": false,
+      "PrimaryKeyIndexName": "PK_DataRecordings",
+      "Indices": [
+        {
+          "Name": "PK_DataRecordings",
+          "Unique": true,
+          "MemberFieldNames": [
+            "RecordId"
+          ]
+        },
+        {
+          "Name": "FK_DataRecordings_Visits_Visit",
+          "Unique": false,
+          "MemberFieldNames": [
+            "VisitRecordId"
+          ]
+        }
+      ],
+      "Fields": [
+        {
+          "Name": "RecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id which is managed by the VisitData repository",
+          "SystemInternal": false,
+          "FixedAfterCreation": true,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "VisitRecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id of the parent visit",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        }
+      ]
+    },
+    {
+      "Name": "Visit",
+      "Table": "Visits",
+      "InheritedEntityName": null,
+      "Summary": "",
+      "IsBlEntrypoint": false,
+      "PrimaryKeyIndexName": "PK_Visits",
+      "Indices": [
+        {
+          "Name": "PK_Visits",
+          "Unique": true,
+          "MemberFieldNames": [
+            "RecordId"
+          ]
+        }
+      ],
+      "Fields": [
+        {
+          "Name": "RecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id which is managed by the VisitData repository",
+          "SystemInternal": false,
+          "FixedAfterCreation": true,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "ParticipantIdentifier",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "identity of the patient which can be a randomization or screening number (the exact semantic is defined per study)",
+          "SystemInternal": false,
+          "FixedAfterCreation": true,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "ExecutingInstituteIdentifier",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "the institute which is executing the study (this should be an invariant technical representation of the company name or a guid)",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "StudyIdentifier",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "unique invariant name of the study itself as defined in the 'StudyWorkflowDefinition' (originated from the sponsor)",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "VisitIdentifier",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "unique invariant name of the visit procedure as defined in the 'StudyWorkflowDefinition' (originated from the sponsor)",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "StudyExecutionIdentifier",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "id of the execution (related to the institute specific execution of the study)",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "ScheduledDateUtc",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "the estimated date when the visit is scheduled for execution",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "ExecutionDateUtc",
+          "Type": "String",
+          "MaxLength": 0,
+          "Summary": "the real date, when the visits was executed",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "ExecutionState",
+          "Type": "Int32",
+          "MaxLength": 0,
+          "Summary": "0=Unscheduled / 1=Sheduled / 2=Executed / 3=AbortDuringExecution / 4=Skipped / 5=Removed",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        }
+      ]
+    },
+    {
+      "Name": "DrugApplyment",
+      "Table": "DrugApplyments",
+      "InheritedEntityName": null,
+      "Summary": "",
+      "IsBlEntrypoint": false,
+      "PrimaryKeyIndexName": "PK_DrugApplyments",
+      "Indices": [
+        {
+          "Name": "PK_DrugApplyments",
+          "Unique": true,
+          "MemberFieldNames": [
+            "RecordId"
+          ]
+        },
+        {
+          "Name": "FK_DrugApplyments_Visits_Visit",
+          "Unique": false,
+          "MemberFieldNames": [
+            "VisitRecordId"
+          ]
+        }
+      ],
+      "Fields": [
+        {
+          "Name": "RecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id which is managed by the VisitData repository",
+          "SystemInternal": false,
+          "FixedAfterCreation": true,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "VisitRecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id of the parent visit",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        }
+      ]
+    },
+    {
+      "Name": "Treatment",
+      "Table": "Treatments",
+      "InheritedEntityName": null,
+      "Summary": "",
+      "IsBlEntrypoint": false,
+      "PrimaryKeyIndexName": "PK_Treatments",
+      "Indices": [
+        {
+          "Name": "PK_Treatments",
+          "Unique": true,
+          "MemberFieldNames": [
+            "RecordId"
+          ]
+        },
+        {
+          "Name": "FK_Treatments_Visits_Visit",
+          "Unique": false,
+          "MemberFieldNames": [
+            "VisitRecordId"
+          ]
+        }
+      ],
+      "Fields": [
+        {
+          "Name": "RecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id which is managed by the VisitData repository",
+          "SystemInternal": false,
+          "FixedAfterCreation": true,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        },
+        {
+          "Name": "VisitRecordId",
+          "Type": "String",
+          "MaxLength": 50,
+          "Summary": "the internal record id of the parent visit",
+          "SystemInternal": false,
+          "FixedAfterCreation": false,
+          "Required": true,
+          "DefaultValue": null,
+          "DbGeneratedIdentity": false
+        }
+      ]
+    }
+  ],
+  "Relations": [
+    {
+      "Name": "VisitDataRecording",
+      "PrimaryEntityName": "Visit",
+      "ForeignEntityName": "DataRecording",
+      "ForeignKeyIndexName": "FK_DataRecordings_Visits_Visit",
+      "IsLookupRelation": false,
+      "PrimaryEntityIsOptional": false,
+      "ForeignEntityIsMultiple": true,
+      "PrimaryNavigationName": "DataRecordings",
+      "ForeignNavigationName": "Visit",
+      "PrimaryNavigationSummary": "all the data which has been captured for this visit",
+      "ForeignNavigationSummary": "",
+      "CascadeDelete": true
+    },
+    {
+      "Name": "VisitDrugApplyment",
+      "PrimaryEntityName": "Visit",
+      "ForeignEntityName": "DrugApplyment",
+      "ForeignKeyIndexName": "FK_DrugApplyments_Visits_Visit",
+      "IsLookupRelation": false,
+      "PrimaryEntityIsOptional": false,
+      "ForeignEntityIsMultiple": true,
+      "PrimaryNavigationName": "DrugApplyments",
+      "ForeignNavigationName": "Visit",
+      "PrimaryNavigationSummary": "all the drug applyments which have been executed for this visit",
+      "ForeignNavigationSummary": "",
+      "CascadeDelete": true
+    },
+    {
+      "Name": "VisitTreatment",
+      "PrimaryEntityName": "Visit",
+      "ForeignEntityName": "Treatment",
+      "ForeignKeyIndexName": "FK_Treatments_Visits_Visit",
+      "IsLookupRelation": false,
+      "PrimaryEntityIsOptional": false,
+      "ForeignEntityIsMultiple": true,
+      "PrimaryNavigationName": "Treatments",
+      "ForeignNavigationName": "Visit",
+      "PrimaryNavigationSummary": "all the treatments which have been executed for this visit",
+      "ForeignNavigationSummary": "",
+      "CascadeDelete": true
+    }
+  ]
+}

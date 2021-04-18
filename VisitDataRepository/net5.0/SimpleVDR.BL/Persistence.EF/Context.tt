@@ -1,4 +1,4 @@
-<#@ template language="CS" debug="false" hostspecific="true"#>
+<#@ template language="C#" debug="false" hostspecific="true"#>
 <#@ assembly name="Newtonsoft.Json" #>
 <#@ assembly name="System.Core"#>
 <#@ import namespace="System" #>
@@ -11,13 +11,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 <#
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//     copyright: Tobias Korn / version: 13.03.2021                                          //
+//     copyright: Tobias Korn / version: 10.04.2021                                          //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
        const string inputFile               = "..\\ORSCF-VisitData.Schema.json";
 
        const string outputNamespace         = "MedicalResearch.VisitData.Persistence.EF";
-       const string entityClassNamePattern  = "{E}";
+       const string entityClassNamePattern  = "{E}Entity";
        const string tablePrefix             = "Vdr";
        const string contextName             = "VisitDataDbContext";
        const string defaultConnectionString = "Server=(localdb)\\MsSqlLocalDb;Database={CN};Integrated Security=True;Persist Security Info=True;MultipleActiveResultSets=True;";
@@ -37,7 +37,10 @@ namespace <#=outputNamespace#> {
 
 #>
 
-  public class <#=contextName#> : DbContext{
+  /// <summary> EntityFramework DbContext (based on schema version '<#=schema.SemanticVersion #>') </summary>
+  public partial class <#=contextName#> : DbContext{
+
+    public const String SchemaVersion = "<#=schema.SemanticVersion #>";
 <#
 
 foreach (EntitySchema entity in schema.Entities) {
@@ -49,7 +52,7 @@ foreach (EntitySchema entity in schema.Entities) {
 
 #>
 
-<#=entitySummary#>    public DbSet<<#=entityClassNamePattern.Replace("{E}", entity.Name)#>> <#=entity.Table#> { get; set; }
+<#=entitySummary#>    public DbSet<<#=entityClassNamePattern.Replace("{E}", entity.Name)#>> <#=entity.NamePlural#> { get; set; }
 <#
 
 }// entity-loop
@@ -98,7 +101,7 @@ foreach (EntitySchema entity in schema.Entities) {
       //////////////////////////////////////////////////////////////////////////////////////
 
       var cfg<#=entity.Name#> = modelBuilder.Entity<<#=resolvedEntityName#>>();
-      cfg<#=entity.Name#>.ToTable("<#=tablePrefix+entity.Table#>");
+      cfg<#=entity.Name#>.ToTable("<#=tablePrefix+entity.NamePlural#>");
       cfg<#=entity.Name#>.HasKey(<#=pkFieldNames#>);<#=identityExpression#>
 <#
 
@@ -299,6 +302,11 @@ if(!String.IsNullOrWhiteSpace(outputNamespace)) {
 
 class SchemaRoot{
 
+  public string DescriptionFormat = "";
+
+  public string TimestampUtc = "";
+  public string SemanticVersion = "";
+
   public EntitySchema[] Entities = {};
 
   public RelationSchema[] Relations = {};
@@ -308,7 +316,7 @@ class SchemaRoot{
 class EntitySchema{
 
   public string Name = "";
-  public string Table = "";
+  public string NamePlural = "";
   public string InheritedEntityName = null;
   public string Summary = "";
 

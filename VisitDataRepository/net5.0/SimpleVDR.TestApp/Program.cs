@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 
 namespace MedicalResearch.VisitData {
@@ -12,36 +13,51 @@ namespace MedicalResearch.VisitData {
       const string xApiKey = "WTXR7QPUXPFRWWTXR7QPUXPFRW";
 
       //////////////////////////////////////////////////////////////////////////////////////////
-      ///
+      
       HttpClient http = new HttpClient();
       http.DefaultRequestHeaders.Add("X-API-Key", xApiKey);
-      VisitDataRepositoryApiClient repository = new VisitDataRepositoryApiClient(repoUrl, http);
+      VdrConnector repository = new VdrConnector(repoUrl, http);
 
       //////////////////////////////////////////////////////////////////////////////////////////
+      
+      Guid studyExec = Guid.Parse("{F0E860C8-D5DD-33B7-4601-7E3FDC3A9F1D}");
 
-      string id = repository.AddNewVisit(
-        new Visit {
-          StudyIdentifier = "STUDY4711",
-          ExecutingInstituteIdentifier = "INST111",
-          StudyExecutionIdentifier = "STUDY4711@INST111",
-          VisitIdentifier ="V0",
-          ParticipantIdentifier = "ALBERTEINSTEIN",
-          ScheduledDateUtc = DateTime.UtcNow.Date
-        }
-      );
+      //if (!repository.SearchStudyExecutionScopes($"StudyExecutionIdentifier==\"{studyExec}\"").Any()) {
+      //  repository.AddNewStudyExecutionScope(
+      //    new StudyExecutionScope {
+      //      StudyExecutionIdentifier = studyExec,
+      //      StudyWorkflowName = "DRUG-A",
+      //      StudyWorkflowVersion = "1.0.0",
+      //      ExecutingInstituteIdentifier = "INSTX"
+      //    }
+      //  );
+      //}
+
+      //var succ = repository.AddNewVisit(
+      //  new Visit {
+      //      VisitGuid = Guid.NewGuid(),
+      //      VisitProdecureName = "FULL",
+      //      VisitExecutionTitle = "V0",
+      //      StudyExecutionIdentifier = studyExec,
+      //      ParticipantIdentifier = "ALBERTEINSTEIN",
+      //      ScheduledDateUtc = DateTime.UtcNow.Date
+      //  }
+      //);
+
+      
 
       Console.WriteLine("loading visits...");
-      IEnumerable<Visit> results = repository.SearchVisits();
-      Console.WriteLine("results:");
+      IEnumerable<Visit> results = repository.SearchVisits("V0");
 
+      Console.WriteLine("results:");
       foreach (Visit v in results) {
         Console.WriteLine();
-        Console.WriteLine("RecordId:                     " + v.RecordId);
-        Console.WriteLine("ExecutingInstituteIdentifier: " + v.ExecutingInstituteIdentifier);
-        Console.WriteLine("StudyExecutionIdentifier:     " + v.StudyExecutionIdentifier);
-        Console.WriteLine("VisitIdentifier:              " + v.VisitIdentifier);
-        Console.WriteLine("ParticipantIdentifier:        " + v.ParticipantIdentifier);
-        Console.WriteLine("ScheduledDateUtc:             " + v.ScheduledDateUtc);
+        Console.WriteLine("VisitGuid:                 " + v.VisitGuid);
+        Console.WriteLine("VisitProdecureName:        " + v.VisitProdecureName);
+        Console.WriteLine("VisitExecutionTitle:       " + v.VisitExecutionTitle);
+        Console.WriteLine("StudyExecutionIdentifier:  " + v.StudyExecutionIdentifier);
+        Console.WriteLine("ParticipantIdentifier:     " + v.ParticipantIdentifier);
+        Console.WriteLine("ScheduledDateUtc:          " + v.ScheduledDateUtc);
       }
 
       //////////////////////////////////////////////////////////////////////////////////////////

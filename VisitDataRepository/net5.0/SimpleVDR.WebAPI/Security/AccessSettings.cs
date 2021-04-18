@@ -43,6 +43,8 @@ namespace Security {
 
     public String[] Permissions { get; set; }
 
+    public String[] DenyPermissions { get; set; }
+
   }
 
 }

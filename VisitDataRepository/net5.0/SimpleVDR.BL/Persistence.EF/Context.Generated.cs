@@ -3,15 +3,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalResearch.VisitData.Persistence.EF {
 
-  public class VisitDataDbContext : DbContext{
+  /// <summary> EntityFramework DbContext (based on schema version '1.3.0') </summary>
+  public partial class VisitDataDbContext : DbContext{
 
-    public DbSet<DataRecording> DataRecordings { get; set; }
+    public const String SchemaVersion = "1.3.0";
 
-    public DbSet<Visit> Visits { get; set; }
+    public DbSet<DataRecordingEntity> DataRecordings { get; set; }
 
-    public DbSet<DrugApplyment> DrugApplyments { get; set; }
+    public DbSet<VisitEntity> Visits { get; set; }
 
-    public DbSet<Treatment> Treatments { get; set; }
+    public DbSet<DrugApplymentEntity> DrugApplyments { get; set; }
+
+    public DbSet<StudyEventEntity> StudyEvents { get; set; }
+
+    public DbSet<StudyExecutionScopeEntity> StudyExecutionScopes { get; set; }
+
+    public DbSet<TreatmentEntity> Treatments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       base.OnModelCreating(modelBuilder);
@@ -22,53 +29,83 @@ namespace MedicalResearch.VisitData.Persistence.EF {
       // DataRecording
       //////////////////////////////////////////////////////////////////////////////////////
 
-      var cfgDataRecording = modelBuilder.Entity<DataRecording>();
+      var cfgDataRecording = modelBuilder.Entity<DataRecordingEntity>();
       cfgDataRecording.ToTable("VdrDataRecordings");
-      cfgDataRecording.HasKey((e) => e.RecordId);
+      cfgDataRecording.HasKey((e) => e.TaskGuid);
 
       // PRINCIPAL: >>> Visit
       cfgDataRecording
         .HasOne((lcl) => lcl.Visit )
         .WithMany((rem) => rem.DataRecordings )
-        .HasForeignKey(nameof(DataRecording.VisitRecordId))
+        .HasForeignKey(nameof(DataRecordingEntity.VisitGuid))
         .OnDelete(DeleteBehavior.Cascade);
 
       //////////////////////////////////////////////////////////////////////////////////////
       // Visit
       //////////////////////////////////////////////////////////////////////////////////////
 
-      var cfgVisit = modelBuilder.Entity<Visit>();
+      var cfgVisit = modelBuilder.Entity<VisitEntity>();
       cfgVisit.ToTable("VdrVisits");
-      cfgVisit.HasKey((e) => e.RecordId);
+      cfgVisit.HasKey((e) => e.VisitGuid);
+
+      // LOOKUP: >>> StudyExecutionScope
+      cfgVisit
+        .HasOne((lcl) => lcl.StudyExecution )
+        .WithMany((rem) => rem.Visits )
+        .HasForeignKey(nameof(VisitEntity.StudyExecutionIdentifier))
+        .OnDelete(DeleteBehavior.Restrict);
 
       //////////////////////////////////////////////////////////////////////////////////////
       // DrugApplyment
       //////////////////////////////////////////////////////////////////////////////////////
 
-      var cfgDrugApplyment = modelBuilder.Entity<DrugApplyment>();
+      var cfgDrugApplyment = modelBuilder.Entity<DrugApplymentEntity>();
       cfgDrugApplyment.ToTable("VdrDrugApplyments");
-      cfgDrugApplyment.HasKey((e) => e.RecordId);
+      cfgDrugApplyment.HasKey((e) => e.TaskGuid);
 
       // PRINCIPAL: >>> Visit
       cfgDrugApplyment
         .HasOne((lcl) => lcl.Visit )
         .WithMany((rem) => rem.DrugApplyments )
-        .HasForeignKey(nameof(DrugApplyment.VisitRecordId))
+        .HasForeignKey(nameof(DrugApplymentEntity.VisitGuid))
         .OnDelete(DeleteBehavior.Cascade);
+
+      //////////////////////////////////////////////////////////////////////////////////////
+      // StudyEvent
+      //////////////////////////////////////////////////////////////////////////////////////
+
+      var cfgStudyEvent = modelBuilder.Entity<StudyEventEntity>();
+      cfgStudyEvent.ToTable("VdrStudyEvents");
+      cfgStudyEvent.HasKey((e) => e.EventGuid);
+
+      // LOOKUP: >>> StudyExecutionScope
+      cfgStudyEvent
+        .HasOne((lcl) => lcl.StudyExecution )
+        .WithMany((rem) => rem.Events )
+        .HasForeignKey(nameof(StudyEventEntity.StudyExecutionIdentifier))
+        .OnDelete(DeleteBehavior.Restrict);
+
+      //////////////////////////////////////////////////////////////////////////////////////
+      // StudyExecutionScope
+      //////////////////////////////////////////////////////////////////////////////////////
+
+      var cfgStudyExecutionScope = modelBuilder.Entity<StudyExecutionScopeEntity>();
+      cfgStudyExecutionScope.ToTable("VdrStudyExecutionScopes");
+      cfgStudyExecutionScope.HasKey((e) => e.StudyExecutionIdentifier);
 
       //////////////////////////////////////////////////////////////////////////////////////
       // Treatment
       //////////////////////////////////////////////////////////////////////////////////////
 
-      var cfgTreatment = modelBuilder.Entity<Treatment>();
+      var cfgTreatment = modelBuilder.Entity<TreatmentEntity>();
       cfgTreatment.ToTable("VdrTreatments");
-      cfgTreatment.HasKey((e) => e.RecordId);
+      cfgTreatment.HasKey((e) => e.TaskGuid);
 
       // PRINCIPAL: >>> Visit
       cfgTreatment
         .HasOne((lcl) => lcl.Visit )
         .WithMany((rem) => rem.Treatments )
-        .HasForeignKey(nameof(Treatment.VisitRecordId))
+        .HasForeignKey(nameof(TreatmentEntity.VisitGuid))
         .OnDelete(DeleteBehavior.Cascade);
 
 #endregion

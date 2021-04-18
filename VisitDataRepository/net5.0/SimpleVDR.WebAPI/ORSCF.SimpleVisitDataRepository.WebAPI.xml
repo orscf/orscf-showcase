@@ -4,61 +4,221 @@
         <name>ORSCF.SimpleVisitDataRepository.WebAPI</name>
     </assembly>
     <members>
-        <member name="M:Security.PermissionsController.GetPermissions">
-            <summary>
-            returns the set of permissions which are assigned to the api-key of the request
-            </summary>
-            <returns>the set of permissions which are assigned to the api-key of the request</returns>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.GetDataRecordingAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing DataRecordings.</summary>
         </member>
-        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.SearchVisits(System.String,System.String,System.String,System.String,System.Nullable{System.Int32})">
-            <summary>
-            searches Visits matching the given criteria
-            </summary>
-            <param name="withParticipantIdentifier"> identity of the patient which can be a randomization or screening number (the exact semantic is defined per study)</param>
-            <param name="withExecutingInstituteIdentifier"> the institute which is executing the study </param>
-            <param name="withStudyIdentifier"> the study itself (this value is not related to any specific execution or institute) </param>
-            <param name="withVisitIdentifier"> the VisitIdentifier as defined in the 'StudyWorkflowDefinition'</param>
-            <param name="withExecutionState">0=Unscheduled / 1=Sheduled / 2=Executed / 3=AbortDuringExecution / 4=Skipped / 5=Removed</param>
-            <returns>an array of found Visits matching the given criteria</returns>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.GetDataRecordingByTaskGuid(System.Guid)">
+            <summary> Loads a specific DataRecording addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
         </member>
-        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.GetVisitById(System.String)">
-            <summary>
-            picks the Visit which is addressed by the given RecordId
-            </summary>
-            <param name="recordId">target RecordId (specific for this repository)</param>
-            <returns>the Visit which is addressed by the given RecordId or null, if is not existing</returns>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.GetDataRecordings(System.Int32,System.Int32)">
+            <summary> Loads DataRecordings. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of DataRecordings which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.SearchDataRecordings(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads DataRecordings where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of DataRecordings which should be returned</param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.AddNewDataRecording(MedicalResearch.VisitData.DataRecording)">
+            <summary> Adds a new DataRecording and returns its primary identifier (or null on failure). </summary>
+            <param name="dataRecording"> DataRecording containing the new values </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.UpdateDataRecording(MedicalResearch.VisitData.DataRecording)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given DataRecording addressed by the primary identifier fields within the given DataRecording. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="dataRecording"> DataRecording containing the new values (the primary identifier fields within the given DataRecording will be used to address the target record) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.UpdateDataRecordingByTaskGuid(System.Guid,MedicalResearch.VisitData.DataRecording)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given DataRecording addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="dataRecording"> DataRecording containing the new values (the primary identifier fields within the given DataRecording will be ignored) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DataRecordingsController.DeleteDataRecordingByTaskGuid(System.Guid)">
+            <summary> Deletes a specific DataRecording addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.GetVisitAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing Visits.</summary>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.GetVisitByVisitGuid(System.Guid)">
+            <summary> Loads a specific Visit addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="visitGuid"> a global unique id of a concrete study-visit execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.GetVisits(System.Int32,System.Int32)">
+            <summary> Loads Visits. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of Visits which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.SearchVisits(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads Visits where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of Visits which should be returned</param>
         </member>
         <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.AddNewVisit(MedicalResearch.VisitData.Visit)">
-            <summary>
-            adds the given Visit as new Record to the Repository. A new RecordId will be assigned
-            (any value of the 'RecordId'-Property of the given Visit will be ignored).
-            </summary>
-            <param name="visit">the new Visit</param>
-            <returns>The newly generated RecordId which (specific for this repository)
-            or null, if the visit data is invalid</returns>
+            <summary> Adds a new Visit and returns its primary identifier (or null on failure). </summary>
+            <param name="visit"> Visit containing the new values </param>
         </member>
         <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.UpdateVisit(MedicalResearch.VisitData.Visit)">
-            <summary>
-            updates the Visit which is addressed by the value of the 'RecordId'-Property of the given Visit using the Contents of the given Visit
-            </summary>
-            <param name="visit">the visit</param>
-            <returns>true, if the visit has been updated, otherwise false</returns>
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given Visit addressed by the primary identifier fields within the given Visit. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="visit"> Visit containing the new values (the primary identifier fields within the given Visit will be used to address the target record) </param>
         </member>
-        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.UpdateVisitById(System.String,MedicalResearch.VisitData.Visit)">
-            <summary>
-            updates the Visit which is addressed by the given RecordId using the Contents of the given Visit
-            (any value of the 'RecordId'-Property of the given Visit will be ignored).
-            </summary>
-            <param name="recordId">target RecordId (specific for this repository)</param>
-            <param name="visit">the visit</param>
-            <returns>true, if the visit has been updated, otherwise false</returns>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.UpdateVisitByVisitGuid(System.Guid,MedicalResearch.VisitData.Visit)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given Visit addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="visitGuid"> a global unique id of a concrete study-visit execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="visit"> Visit containing the new values (the primary identifier fields within the given Visit will be ignored) </param>
         </member>
-        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.DeleteVisit(System.String)">
-            <summary>
-            deletes the Visit which is addressed by the given RecordId 
-            </summary>
-            <param name="recordId">target RecordId (specific for this repository)</param>
-            <returns>true, if the visit has been deleted or wasnt exisiting, otherwise false</returns>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.VisitsController.DeleteVisitByVisitGuid(System.Guid)">
+            <summary> Deletes a specific Visit addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="visitGuid"> a global unique id of a concrete study-visit execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.GetDrugApplymentAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing DrugApplyments.</summary>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.GetDrugApplymentByTaskGuid(System.Guid)">
+            <summary> Loads a specific DrugApplyment addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.GetDrugApplyments(System.Int32,System.Int32)">
+            <summary> Loads DrugApplyments. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of DrugApplyments which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.SearchDrugApplyments(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads DrugApplyments where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of DrugApplyments which should be returned</param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.AddNewDrugApplyment(MedicalResearch.VisitData.DrugApplyment)">
+            <summary> Adds a new DrugApplyment and returns its primary identifier (or null on failure). </summary>
+            <param name="drugApplyment"> DrugApplyment containing the new values </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.UpdateDrugApplyment(MedicalResearch.VisitData.DrugApplyment)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given DrugApplyment addressed by the primary identifier fields within the given DrugApplyment. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="drugApplyment"> DrugApplyment containing the new values (the primary identifier fields within the given DrugApplyment will be used to address the target record) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.UpdateDrugApplymentByTaskGuid(System.Guid,MedicalResearch.VisitData.DrugApplyment)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given DrugApplyment addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="drugApplyment"> DrugApplyment containing the new values (the primary identifier fields within the given DrugApplyment will be ignored) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.DrugApplymentsController.DeleteDrugApplymentByTaskGuid(System.Guid)">
+            <summary> Deletes a specific DrugApplyment addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.GetStudyEventAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing StudyEvents.</summary>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.GetStudyEventByEventGuid(System.Guid)">
+            <summary> Loads a specific StudyEvent addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="eventGuid"> a global unique id of a concrete study-event occurrence which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.GetStudyEvents(System.Int32,System.Int32)">
+            <summary> Loads StudyEvents. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of StudyEvents which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.SearchStudyEvents(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads StudyEvents where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of StudyEvents which should be returned</param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.AddNewStudyEvent(MedicalResearch.VisitData.StudyEvent)">
+            <summary> Adds a new StudyEvent and returns its primary identifier (or null on failure). </summary>
+            <param name="studyEvent"> StudyEvent containing the new values </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.UpdateStudyEvent(MedicalResearch.VisitData.StudyEvent)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given StudyEvent addressed by the primary identifier fields within the given StudyEvent. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="studyEvent"> StudyEvent containing the new values (the primary identifier fields within the given StudyEvent will be used to address the target record) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.UpdateStudyEventByEventGuid(System.Guid,MedicalResearch.VisitData.StudyEvent)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given StudyEvent addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="eventGuid"> a global unique id of a concrete study-event occurrence which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="studyEvent"> StudyEvent containing the new values (the primary identifier fields within the given StudyEvent will be ignored) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyEventsController.DeleteStudyEventByEventGuid(System.Guid)">
+            <summary> Deletes a specific StudyEvent addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="eventGuid"> a global unique id of a concrete study-event occurrence which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.GetStudyExecutionScopeAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing StudyExecutionScopes.</summary>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.GetStudyExecutionScopeByStudyExecutionIdentifier(System.Guid)">
+            <summary> Loads a specific StudyExecutionScope addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="studyExecutionIdentifier"> a global unique id of a concrete study execution (dedicated to a concrete institute) which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.GetStudyExecutionScopes(System.Int32,System.Int32)">
+            <summary> Loads StudyExecutionScopes. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of StudyExecutionScopes which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.SearchStudyExecutionScopes(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads StudyExecutionScopes where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of StudyExecutionScopes which should be returned</param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.AddNewStudyExecutionScope(MedicalResearch.VisitData.StudyExecutionScope)">
+            <summary> Adds a new StudyExecutionScope and returns its primary identifier (or null on failure). </summary>
+            <param name="studyExecutionScope"> StudyExecutionScope containing the new values </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.UpdateStudyExecutionScope(MedicalResearch.VisitData.StudyExecutionScope)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given StudyExecutionScope addressed by the primary identifier fields within the given StudyExecutionScope. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="studyExecutionScope"> StudyExecutionScope containing the new values (the primary identifier fields within the given StudyExecutionScope will be used to address the target record) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.UpdateStudyExecutionScopeByStudyExecutionIdentifier(System.Guid,MedicalResearch.VisitData.StudyExecutionScope)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given StudyExecutionScope addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="studyExecutionIdentifier"> a global unique id of a concrete study execution (dedicated to a concrete institute) which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="studyExecutionScope"> StudyExecutionScope containing the new values (the primary identifier fields within the given StudyExecutionScope will be ignored) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.StudyExecutionScopesController.DeleteStudyExecutionScopeByStudyExecutionIdentifier(System.Guid)">
+            <summary> Deletes a specific StudyExecutionScope addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="studyExecutionIdentifier"> a global unique id of a concrete study execution (dedicated to a concrete institute) which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.GetTreatmentAccessSpecs">
+            <summary> Returns an info object, which specifies the possible operations (accessor specific permissions) when accessing Treatments.</summary>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.GetTreatmentByTaskGuid(System.Guid)">
+            <summary> Loads a specific Treatment addressed by the given primary identifier. Returns null on failure, or if no record exists with the given identity.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.GetTreatments(System.Int32,System.Int32)">
+            <summary> Loads Treatments. </summary>
+            <param name="page">Number of the page, which should be returned </param>
+            <param name="pageSize">Max count of Treatments which should be returned </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.SearchTreatments(System.String,System.Int32,System.Int32,System.String)">
+            <summary> Loads Treatments where values matching to ALL fields of the given 'filterValues' object.</summary>
+            <param name="filterExpression">a filter expression like '((FieldName1 == "ABC" &amp;&amp; FieldName2 &gt; 12) || FieldName2 != "")'</param>
+            <param name="sort">one or more property names which are used as sort order (before pagination)</param>
+            <param name="page">Number of the page, which should be returned</param>
+            <param name="pageSize">Max count of Treatments which should be returned</param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.AddNewTreatment(MedicalResearch.VisitData.Treatment)">
+            <summary> Adds a new Treatment and returns its primary identifier (or null on failure). </summary>
+            <param name="treatment"> Treatment containing the new values </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.UpdateTreatment(MedicalResearch.VisitData.Treatment)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given Treatment addressed by the primary identifier fields within the given Treatment. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="treatment"> Treatment containing the new values (the primary identifier fields within the given Treatment will be used to address the target record) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.UpdateTreatmentByTaskGuid(System.Guid,MedicalResearch.VisitData.Treatment)">
+            <summary> Updates all values (which are not "FixedAfterCreation") of the given Treatment addressed by the supplementary given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
+            <param name="treatment"> Treatment containing the new values (the primary identifier fields within the given Treatment will be ignored) </param>
+        </member>
+        <member name="M:MedicalResearch.VisitData.RepositoryService.TreatmentsController.DeleteTreatmentByTaskGuid(System.Guid)">
+            <summary> Deletes a specific Treatment addressed by the given primary identifier. Returns false on failure or if no target record was found, otherwise true.</summary>
+            <param name="taskGuid"> a global unique id of a concrete study-task execution which is usually originated at the primary CRF or study management system ('SMS') </param>
         </member>
     </members>
 </doc>

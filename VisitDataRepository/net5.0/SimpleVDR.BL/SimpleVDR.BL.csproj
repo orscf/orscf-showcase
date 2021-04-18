@@ -24,16 +24,29 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="(LIB)\ORSCF.VisitDataRepository.Model.dll\RepoInterfaces.tt">
+      <LastGenOutput>RepoInterfaces.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="(LIB)\ORSCF.VisitDataRepository.Model.dll\Models.tt">
+      <LastGenOutput>Models.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Persistence.EF\Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Context.Generated.cs</LastGenOutput>
     </None>
-    <None Update="Entities.tt">
+    <None Update="Persistence.EF\Entities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entities.Generated.cs</LastGenOutput>
+    </None>
+    <None Update="Stores\Stores.tt">
+      <LastGenOutput>Stores.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>
 
@@ -42,15 +55,30 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Entities.Generated.cs">
+    <Compile Update="(LIB)\ORSCF.VisitDataRepository.Model.dll\Models.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Update="(LIB)\ORSCF.VisitDataRepository.Model.dll\RepoInterfaces.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RepoInterfaces.tt</DependentUpon>
     </Compile>
     <Compile Update="Persistence.EF\Context.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Persistence.EF\Entities.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Stores\Stores.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Stores.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

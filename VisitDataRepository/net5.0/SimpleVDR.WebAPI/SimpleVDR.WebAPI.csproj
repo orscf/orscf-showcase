@@ -27,4 +27,23 @@
     <ProjectReference Include="..\SimpleVDR.BL\SimpleVDR.BL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Controllers\Controllers.tt">
+      <LastGenOutput>Controllers.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controllers\Controllers.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Controllers.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.Data.AccessControl;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,23 +54,32 @@ namespace Security {
         }
       }
 
-      if (_RequiredPermissions.Length > 0) {
-        foreach (string requiredPermission in _RequiredPermissions) {
-          if (keyConfig.Permissions == null || !keyConfig.Permissions.Contains(requiredPermission)) {
-            context.Result = new ContentResult() {
-              StatusCode = 401,
-              Content = "missing permissions for this operation"
-            };
-            return;
+      using (var mac = new AccessControlContext()) {
+
+        mac.AddPermissions(keyConfig.Permissions);
+        mac.AddDeniedPermissions(keyConfig.DenyPermissions);
+
+        mac.AddClearances(new {
+          Institute = keyConfig.ScopeToExecutingInstituteIdentifier,
+          Study = keyConfig.ScopeToStudyIdentifier,
+        });
+
+
+        if (_RequiredPermissions.Length > 0) {
+          foreach (string requiredPermission in _RequiredPermissions) {
+            if (!mac.HasEffectivePermission(requiredPermission)) {
+              context.Result = new ContentResult() {
+                StatusCode = 401,
+                Content = "missing permissions for this operation"
+              };
+              return;
+            }
           }
         }
+
+        await next();
+
       }
-
-      AccessControl.ScopeToExecutingInstituteIdentifier = keyConfig.ScopeToExecutingInstituteIdentifier;
-      AccessControl.ScopeToStudyIdentifier = keyConfig.ScopeToStudyIdentifier;
-      AccessControl.CurrentPermissions = keyConfig.Permissions;
-
-      await next();
     }
   }
 

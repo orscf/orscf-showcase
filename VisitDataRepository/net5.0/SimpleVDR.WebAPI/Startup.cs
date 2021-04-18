@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using MedicalResearch.VisitData.Persistence.EF;
 using System;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Threading.Tasks;
 
 namespace WebAPI {
 
@@ -20,7 +22,14 @@ namespace WebAPI {
 
     public void ConfigureServices(IServiceCollection services) {
 
-     VisitDataDbContext.Migrate();
+      services.AddMvc(f =>
+      {
+        //if we dont do this, mvc will automatically return 204, when content is null
+        //f.OutputFormatters.RemoveType(typeof(HttpNoContentOutputFormatter));
+        //f.OutputFormatters.Insert(0, new HttpNoContentOutputFormatter {TreatNullValueAsNoContent = false});
+      });
+
+      VisitDataDbContext.Migrate();
 
       string outDir = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -39,7 +48,7 @@ namespace WebAPI {
           "v1",
           new OpenApiInfo {
             Title = "Visit Data Repository API",
-            Version = "v1.0.0",
+            Version = MedicalResearch.VisitData.RepositoryService.VisitsController.SchemaVersion,
             Description = "stores data for research study related visits",
             Contact = new OpenApiContact { 
               Name = "Open Research Study Communication Format",
@@ -63,9 +72,9 @@ namespace WebAPI {
         });
 
         app.UseSwaggerUI(c => {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "VisitDataRepositoryApi v1");
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "VisitDataRepositoryApi " + MedicalResearch.VisitData.RepositoryService.VisitsController.SchemaVersion);
           //c.RoutePrefix = string.Empty;
-          c.ConfigObject.DefaultModelExpandDepth = 2;
+          //c.ConfigObject.DefaultModelExpandDepth = 2;
           
           c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
           c.DocumentTitle = "Visit Data Repository - OpenAPI Schema";

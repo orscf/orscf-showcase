@@ -4,7 +4,7 @@
   "documentGenerator": {
     "fromDocument": {
       "url": "D:\\(git)\\ORSCF\\(ORSCF) orscf-showcase\\VisitDataRepository\\net5.0\\SimpleVDR.TestApp\\..\\..\\..\\..\\(ORSCF) orscf-specification\\VisitData\\swagger.json",
-      "output": "VisitDataRepositoryApiClient.nswag.json",
+      "output": "VdrConnector.nswag.json",
       "newLineBehavior": "Auto"
     }
   },
@@ -40,8 +40,8 @@
       "useRequestAndResponseSerializationSettings": false,
       "serializeTypeInformation": false,
       "queryNullValue": "",
-      "className": "VisitDataRepositoryApiClient",
-      "operationGenerationMode": "SingleClientFromOperationId",
+      "className": "VdrConnector",
+      "operationGenerationMode": "MultipleClientsFromOperationId",
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
       "generateOptionalParameters": true,
@@ -57,10 +57,10 @@
       "responseClass": "SwaggerResponse",
       "namespace": "MedicalResearch.VisitData",
       "requiredPropertiesMustBeDefined": true,
-      "dateType": "System.DateTimeOffset",
+      "dateType": "System.DateTime",
       "jsonConverters": null,
       "anyType": "object",
-      "dateTimeType": "System.DateTimeOffset",
+      "dateTimeType": "System.DateTime",
       "timeType": "System.TimeSpan",
       "timeSpanType": "System.TimeSpan",
       "arrayType": "System.Collections.Generic.ICollection",
@@ -70,6 +70,7 @@
       "arrayBaseType": "System.Collections.ObjectModel.Collection",
       "dictionaryBaseType": "System.Collections.Generic.Dictionary",
       "classStyle": "Poco",
+      "jsonLibrary": "NewtonsoftJson",
       "generateDefaultValues": true,
       "generateDataAnnotations": true,
       "excludedTypeNames": [],
@@ -85,13 +86,13 @@
       "generateDtoTypes": true,
       "generateOptionalPropertiesAsNullable": false,
       "generateNullableReferenceTypes": false,
-      "templateDirectory": null,
+      "templateDirectory": "..\\",
       "typeNameGeneratorType": null,
       "propertyNameGeneratorType": null,
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "VisitDataRepositoryApiClient.cs",
+      "output": "VdrConnector.cs",
       "newLineBehavior": "Auto"
     }
   }

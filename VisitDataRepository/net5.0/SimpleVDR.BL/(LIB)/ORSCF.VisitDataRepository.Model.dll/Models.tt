@@ -1,4 +1,4 @@
-<#@ template language="CS" debug="false" hostspecific="true"#>
+<#@ template language="C#" debug="false" hostspecific="true"#>
 <#@ assembly name="Newtonsoft.Json" #>
 <#@ assembly name="System.Core"#>
 <#@ import namespace="System" #>
@@ -8,26 +8,26 @@
 <#@ import namespace="Newtonsoft.Json" #>
 <#@ output extension=".Generated.cs"#><#
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//     copyright: Tobias Korn / version: 13.03.2021                                          //
+//     copyright: Tobias Korn / version: 10.04.2021                                          //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-       const string inputFile = "ORSCF-VisitData.Schema.json";
+       const string inputFile = "..\\..\\ORSCF-VisitData.Schema.json";
 
        const string outputNamespace = "MedicalResearch.VisitData";
        const string entityClassNamePattern = "{E}";
 
-       const bool generateNavPropsToPrincipal         = true;
-       const bool generateReverseNavPropsToDependents = true;
+       const bool generateNavPropsToPrincipal         = false;
+       const bool generateReverseNavPropsToDependents = false;
 
-       const bool generateNavPropsToLookup            = true;
-       const bool generateReverseNavPropsToReferers   = true;
+       const bool generateNavPropsToLookup            = false;
+       const bool generateReverseNavPropsToReferers   = false;
 
        const bool generateEfAttributes                = false;
        const string tablePrefix = "";
        
        const bool generateMappingMethods              = false;
        const string mappingTargetClassNamePattern     = "{E}";
-       const string mappingMethodAccessLevel          = "public";
+       const string mappingMethodAccessLevel          = "internal";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,24 +64,6 @@ foreach (EntitySchema entity in schema.Entities) {
     attributesPerField[field.Name] = new List<String>();
   }
 
-  /* ForeignKey-Attibute on this side works only for non-compisite-keys, because the column-order cant be specified
-  foreach (RelationSchema rel in schema.Relations) {
-    if(rel.ForeignEntityName == entity.Name){
-      foreach (IndexSchema idx in entity.Indices) {
-        if(idx.Name == rel.ForeignKeyIndexName){
-          int i = 0;
-          foreach (String foreignKeyFieldName in idx.MemberFieldNames) {
-            if(generateEfAttributes){
-              attributesPerField[foreignKeyFieldName].Add("ForeignKey(nameof(" + rel.ForeignNavigationName + "))");
-            }
-            i++;
-          }
-        }
-      }
-    }
-  }
-  */
-
   String entitySummary = entity.Summary;
   if(!String.IsNullOrWhiteSpace(entitySummary)){
     entitySummary = "/// <summary> " + entitySummary.Trim().Replace("\n", "\n/// ") + " </summary>\n";
@@ -89,7 +71,7 @@ foreach (EntitySchema entity in schema.Entities) {
 
   String tbl = "";
   if(generateEfAttributes){
-    tbl = "[Table(\"" + tablePrefix + entity.Table + "\")]\n";
+    tbl = "[Table(\"" + tablePrefix + entity.NamePlural + "\")]\n";
   }
 
   String inheritance = "";
@@ -375,6 +357,11 @@ if(!String.IsNullOrWhiteSpace(outputNamespace)) {
 
 class SchemaRoot{
 
+  public string DescriptionFormat = "";
+
+  public string TimestampUtc = "";
+  public string SemanticVersion = "";
+
   public EntitySchema[] Entities = {};
 
   public RelationSchema[] Relations = {};
@@ -384,7 +371,7 @@ class SchemaRoot{
 class EntitySchema{
 
   public string Name = "";
-  public string Table = "";
+  public string NamePlural = "";
   public string InheritedEntityName = null;
   public string Summary = "";
 
